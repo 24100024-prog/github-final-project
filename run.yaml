@@ -1,23 +1,17 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: tax-calculator-run
+  name: nodejs-pipeline-run
 spec:
   pipelineRef:
-    name: tax-calculator-pipeline
+    name: nodejs-pipeline
 
   params:
     - name: repo-url
-      value: https://github.com/<username>/<repo-name>
-    - name: image-name
-      value: us.icr.io/<namespace>/tax-calculator
+      value: https://github.com/your-username/your-repo
+    - name: revision
+      value: main
 
   workspaces:
     - name: shared-workspace
-      volumeClaimTemplate:
-        spec:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 1Gi
+      emptyDir: {}
